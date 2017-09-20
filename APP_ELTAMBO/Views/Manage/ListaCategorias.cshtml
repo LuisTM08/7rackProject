@@ -1,0 +1,90 @@
+﻿@model IEnumerable<APP_ELTAMBO.Entity.Categoria>
+
+@{
+    ViewBag.Title = "Lista de categorias";
+}
+<section id="lista-categorias">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("_MenuAdmin")
+        </div>
+        <div class="col-md-9">
+            <div class="page-header">
+                <h2>Lista de categorias</h2>
+            </div>
+            <p>
+                
+                <a href="@Url.Action("CreateCategoria","Manage")" class="btn btn-primary">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Agregar nueva categoria
+                </a>
+            </p>
+            <table class="table table-hover">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdCategoria)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NombreCat)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </th>
+                    <th>
+                        Acciones
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdCategoria)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreCat)
+                        </td>
+                        <td>
+                            @if (item.Estado == 1)
+                            {
+                                <p>Activo</p>
+                            }
+                            else
+                            {
+                                <p>Inactivo</p>
+                            }
+                           
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                @if (item.IdCategoria == 1)
+                                {
+                                    <a href="@Url.Action("EditCategoria","Manage", new {  id=item.IdCategoria  })" class="btn btn-default">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-default disabled">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("EditCategoria","Manage", new {  id=item.IdCategoria  })" class="btn btn-default">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="@Url.Action("DeleteCategoria","Manage", new {  id=item.IdCategoria  })" class="btn btn-default">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                }
+                               
+                                
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+</section>
+
+

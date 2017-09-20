@@ -1,0 +1,313 @@
+﻿@model APP_ELTAMBO.Entity.Producto
+
+@{
+    ViewBag.Title = "Actualizar Producto";
+}
+<section id="producto">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("_MenuAdmin")
+        </div>
+        <div class="col-md-9">
+@using (Html.BeginForm())
+{
+            <div class="page-header">
+                <h2>Actualizar producto</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NombreProd, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.HiddenFor(model => model.IdProducto)
+                                    @Html.EditorFor(model => model.NombreProd, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.NombreProd, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DescripcionPro, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextAreaFor(model => model.DescripcionPro, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.DescripcionPro, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PrecioUnitario, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.PrecioUnitario, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PrecioUnitario, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EnPortada, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    <div class="radio-inline">
+                                         @Html.RadioButton("EnPortada", 1, true) Por defecto
+                                    </div>
+                                    <div class="radio-inline">
+                                         @Html.RadioButton("EnPortada", 2) Portada
+                                    </div>
+                                    <div class="radio-inline">
+                                         @Html.RadioButton("EnPortada", 3) Recomendados
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IdMarca, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.DropDownList("IdMarca", (SelectList)ViewBag.Marcas, "Seleccione Marca", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IdCategoria, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.DropDownList("IdCategoria", (SelectList)ViewBag.Categorias, "Seleccione Categoria", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.DropDownList("Estado", (SelectList)ViewBag.listarEstado, "Seleccione Estado", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a href="@Url.Action("Index","Producto")" class="btn btn-default">
+                                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar a lista
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar Producto
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                   
+                </div>
+                <div class="col-md-5">
+                        
+                        <div id="btnaction" class="action-toolbars">
+                            <div id="form-imagen" class="form-group">
+                                @if (Model.ImagenProducto != "")
+                                {
+                                    @Html.HiddenFor(model => model.ImagenProducto)
+                                } else {
+                                    @Html.TextBox("ImagenProducto", "", null, new { @type = "file", @onchange = "cargarImagen()" })
+                                }
+                                <input type="hidden" id="x" name="x" />
+                                <input type="hidden" id="y" name="y" />
+                                <input type="hidden" id="w" name="w" />
+                                <input type="hidden" id="h" name="h" />
+                                <div id="msg-error" class="alert alert-warning"></div>
+                            </div>
+                            <figure class="picture">
+                                @if (Model.ImagenProducto != "")
+                                {
+                                    <img src="@Url.Content("~/Uploads/products/")@ViewBag.getImage" id="imgAvatar" class="img-thumbnail" alt="" width="180" height="180">
+                                }
+                                else
+                                {
+                                    <img src="~/images/producto-item.svg" id="imgAvatar" class="img-thumbnail" alt="" width="180" height="180">
+                                }
+                            </figure>
+                            @if (Model.ImagenProducto != "")
+                            {
+                                <button type="button" id="borrarImagen" class="btn btn-danger">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    Quitar imagen
+                                </button>
+                            }
+                            
+                                <button type="button" id="recortarImagen" class="btn btn-default">
+                                    <i class="fa fa-crop" aria-hidden="true"></i>
+                                    Recortar imagen
+                                </button>
+                            
+                        </div>
+                        <div id="panel-crop" class="panel-image">
+                            <div class="preview-image">
+                                <img id="img-preview" class="crop" />
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+}
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $("#panel-crop").hide();
+            $("#recortarImagen").hide();
+        });
+
+        function readURL() {
+            //colocamos el archivo carfado en una variable
+            $("#panel-crop").show();
+            $("#recortarImagen").show();
+            var oFile = $("#ImagenProducto")[0].files[0];
+            if (oFile) {
+
+                var oReader = new FileReader();
+                var rFilter = /^(image\/jpeg|image\/png)$/i;
+
+                if (!rFilter.test(oFile.type)) {
+                    $('#msg-error').html('Por favor seleccione un archivo valido JPG o PNG').show();
+                    return;
+                }
+                if (oFile) {
+                    if (window.FormData !== undefined) {
+                        var formData = new FormData();
+                        formData.append("file", oFile);
+                        $.ajax({
+                            type: "POST",
+                            url: '/Producto/Upload',
+                            contentType: false,
+                            processData: false,
+                            data: formData,
+                            success: function (result) {
+                                NombreImagen = result
+                            },
+                            error: function (xhr) {
+                                console.log(xhr.responseText);
+                            }
+                        });
+                    } else {
+                        alert("Error al subir imagen");
+                    }
+                }
+                // Chequear el tamaño de la imagen
+                if (oFile.size > 1024 * 1024) {
+                    $('#msg-error').html('Solo se permite subir imagenes menor a 2,5 MB').show();
+                    return;
+                }
+                var oImagen = document.getElementById('img-preview');
+
+                oReader.onload = function (e) {
+                    oImagen.src = e.target.result;
+                    oImagen.onload = function () {
+                        // Eliminar el Jcrop si este Existe
+                        if (typeof jcrop_api != 'undefined') {
+                            jcrop_api.destroy();
+                            jcrop_api = null;
+                        }
+                        $('#img-preview').Jcrop({
+                            minSize: [32, 32], // min crop size
+                            onSelect: updateCoords,
+                            bgOpacity: .4,
+                            setSelect: [100, 100, 50, 50],
+                            aspectRatio: 1,
+                            boxWidth: 300
+                        }, function () {
+                            jcrop_api = this;
+                        });
+                    };
+                }
+                oReader.readAsDataURL(oFile);
+            }
+        }
+        $('#recortarImagen').on("click", function (e) {
+            e.preventDefault();
+            cropImagen();
+            $("#panel-crop").hide();
+        });
+        
+
+        function cargarImagen() {
+            readURL();
+        }
+
+        function updateCoords(c) {
+            $('#x').val(c.x);
+            $('#y').val(c.y);
+            $('#w').val(c.w);
+            $('#h').val(c.h);
+        };
+        function cropImagen() {
+            var imgX = $("#x").val();
+            var imgY = $("#y").val();
+            var imgW = $("#w").val();
+            var imgH = $("#h").val();
+            var img = {
+                'CorX': Math.round(imgX),
+                'CorY': Math.round(imgY),
+                'CorW': Math.round(imgW),
+                'CorH': Math.round(imgH),
+                NombreImagen
+            }
+            $.ajax({
+                type: "POST",
+                url: '/Producto/Crop',
+                contentType: "application/json; charset=utf-8",
+                processData: false,
+                data: JSON.stringify(img),
+                success: function (result) {
+                    $fileupload = $('#ImagenProducto');
+                    $fileupload.replaceWith($fileupload.clone(true));
+                    $("#imgAvatar").attr('src', result);
+                    $('#recortarImagen').hide();
+                    $('#btnaction').append('<button type="button" id="borrarImagen" class="btn btn-danger">' +
+                        '<i class="fa fa-trash-o" aria-hidden="true"></i>Quitar imagen</button>');
+                    $('#ImagenProducto').remove();
+                    $('#form-imagen').append('<input id="ImagenProducto" name="ImagenProducto" type="hidden" value="' + NombreImagen + '">');
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+        function borrarImagen() {
+            var idProd = $("#IdProducto").val();
+            var imgProd = $("#ImagenProducto").val();
+            var producto = {
+                'IdProducto': idProd,
+                'ImagenProducto': imgProd
+            }
+            $.ajax({
+                type: "POST",
+                url: "/Producto/Borrar",
+                contentType: "application/json; charset=utf-8",
+                processData: false,
+                data: JSON.stringify(producto),
+                success: function (result) {
+                    $("#imgAvatar").attr('src', '/images/producto-item.svg');
+                    $('#ImagenProducto').remove();
+                    var inputFile = '<input id="ImagenProducto" name="ImagenProducto" onchange="cargarImagen()" type="file" value="">';
+                    $("#form-imagen").append(inputFile);
+                }
+            });
+        }
+        $('#btnaction').on("click", "#borrarImagen", function () {
+            console.log("funciona");
+            $('#borrarImagen').remove();
+            borrarImagen();
+        });
+    </script>
+}
+
+
+
+
+
+

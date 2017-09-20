@@ -1,0 +1,114 @@
+﻿@model APP_ELTAMBO.Entity.Producto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Producto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdProducto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdProducto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreProd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreProd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescripcionPro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescripcionPro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecioUnitario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrecioUnitario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnPortada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnPortada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdCategoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdCategoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreCategoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCategoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdMarca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdMarca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreMarca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreMarca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagenProducto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagenProducto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<APP_ELTAMBO.Entity.Producto>
+
+@{
+    ViewBag.Title = "CatalogoList";
+}
+
+<br />
+<section id="page-content">
+    <div class="page-header">
+        <h2>Catalogo de Productos</h2>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 padding-right">
+            <!--- PRODUCTOS HOME -->
+            <div class="features_items">
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-sm-4">
+                        <div id="producto_@item.IdProducto" class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <a href="@Url.Action("Producto","Home", new {  id=item.IdProducto  })">
+                                        @if (item.ImagenProducto.ToString() == null)
+                                        {
+                                            <img src="~/images/producto-item.svg" alt="" width="200" height="200" />
+                                        }
+                                        else
+                                        {
+                                            <img src="@Url.Content("~/Uploads/products/")@item.ImagenProducto" width="200" alt="@item.NombreProd" />
+                                        }
+                                    </a>
+                                    <h2>S/. @item.PrecioUnitario.ToString("0.00")</h2>
+                                    <p>@item.NombreProd</p>
+                                    <p>@item.NombreCategoria</p>
+                                    <button onclick="addProducto(@item.IdProducto);" data-id="@item.IdProducto" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i> Agregar al carrito</button>
+                                    <!-- <a href="#" onclick="addProducto();" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i> Agregar al carrito</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

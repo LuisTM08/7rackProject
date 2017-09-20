@@ -1,0 +1,93 @@
+﻿@model APP_ELTAMBO.Entity.Cupon
+
+@{
+    ViewBag.Title = "Borrar Cupón";
+}
+<section id="cupones">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("_MenuAdmin")
+        </div>
+        <div class="col-md-9">
+            <div class="page-header">
+                <h2>Eliminar Cupón</h2>
+            </div>
+            <div class="alert alert-danger" role="alert">
+                <p>¿Desea eliminar el cupón seleccionada?</p>
+            </div>
+            <div>
+                <h4>Detalle</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IdCupon)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.IdCupon)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NombreCupon)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.NombreCupon)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CodigoCupon)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CodigoCupon)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Porcentaje)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Porcentaje)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Visibilidad)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Visibilidad)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Estado)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <a href="@Url.Action("Index","Cupon")" class="btn btn-default">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar a lista
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar marca
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    
+</section>
+
+
+
+

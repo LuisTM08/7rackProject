@@ -1,0 +1,76 @@
+﻿@model APP_ELTAMBO.Entity.Usuario
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<section id="usuario">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("_MenuAdmin")
+        </div>
+        <div class="col-md-9">
+            <div class="page-header">
+                <h2>Eliminar Usuario</h2>
+            </div>
+            <div class="alert alert-danger" role="alert">
+                <p>¿Desea eliminar al usuario seleccionado?</p>
+            </div>
+            <div class="info-usuario">
+                <dl class="dl-horizontal">
+                    
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IdLogin)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.IdLogin)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Nombre)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Apellido)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Apellido)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+
+                </dl>
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <a href="@Url.Action("Index","Usuario")" class="btn btn-default">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar a lista
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar marca
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+            
+            
+                
+       

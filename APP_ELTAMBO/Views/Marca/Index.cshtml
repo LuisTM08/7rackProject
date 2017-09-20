@@ -1,0 +1,72 @@
+﻿@model IEnumerable<APP_ELTAMBO.Entity.Marca>
+
+@{
+    ViewBag.Title = "Lista de marcas";
+}
+<section id="marca">
+    <div class="col-md-3">
+        @Html.Partial("_MenuAdmin")
+    </div>
+    <div class="col-md-9">
+        <div class="page-header">
+            <h2>Lista de marcas</h2>
+        </div>
+        <p>
+            <a href="@Url.Action("Create","Marca")" class="btn btn-primary">
+                <i class="fa fa-plus" aria-hidden="true"></i> Agregar nueva marca
+            </a>
+        </p>
+
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdMarca)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NombreMarca)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th>Acciones</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdMarca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreMarca)
+                    </td>
+                    <td>
+                       @if (item.Estado == 1)
+                       {
+                        <p>Activo</p>
+                       }
+                       else
+                       {
+                        <p>Inactivo</p>
+                       }
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="@Url.Action("Edit","Marca", new {  id=item.IdMarca  })" class="btn btn-default">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                            <a href="@Url.Action("Delete","Marca", new {  id=item.IdMarca  })" class="btn btn-default">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</section>
+
+
+

@@ -1,0 +1,131 @@
+﻿@model IEnumerable<APP_ELTAMBO.Entity.Pedido>
+
+@{
+    ViewBag.Title = "Lista de Pedidos";
+}
+<section id="pedidos">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("_MenuAdmin")
+        </div>
+        <div class="col-md-9">
+            <div class="page-header">
+                <h2>Lista de pedidos</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdPedido)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.nombreUsuario)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FechaPedido)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FechaEntrega)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FechaEnvio)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Total)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Estado)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Pago)
+                        </th>
+                        <th>Acciones</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdPedido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nombreUsuario)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaPedido)
+                            </td>
+                            <td>
+                                @if (item.FechaEntrega == "")
+                                {
+                                    <p>No programado</p>
+                                }
+                                else
+                                {
+                                    <p>@item.FechaEntrega</p>
+                                }
+
+                            </td>
+                            <td>
+                                @if (item.FechaEnvio == "")
+                                {
+                                    <p>No programado</p>
+                                }
+                                else
+                                {
+                                    <p>@item.FechaEnvio</p>
+                                }
+
+                            </td>
+                            <td>
+                                <p>S/. @item.Total.ToString("0.00")</p>
+                            </td>
+                            <td>
+                                @if (item.Estado == 1)
+                                {
+                                    <p>Pedido</p>
+                                }
+                                else if (item.Estado == 2)
+                                {
+                                    <p>Enviado</p>
+                                }
+                                else
+                                {
+                                    <p>Entregado</p>
+                                }
+
+                            </td>
+                            <td>
+                                @if (item.Pago == 1)
+                                {
+                                    <p>Pagado</p>
+                                }
+                                else
+                                {
+                                    <p>Pago Contraentrega</p>
+                                }
+
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="@Url.Action("Edit","Pedido", new {  id=item.IdPedido })" class="btn btn-default">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="@Url.Action("Details","Pedido", new {  id=item.IdPedido })" class="btn btn-default">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="@Url.Action("Delete","Pedido", new {  id=item.IdPedido })" class="btn btn-default">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+     </div>
+</section>
+
+            
+
+            

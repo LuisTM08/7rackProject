@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <div class="sidebar">
+       
+@if (HttpContext.Current.User.IsInRole("Administrador"))
+{
+        <div class="panel panel-default panel-menu">
+            <div class="panel-heading">Modulo del Administrador</div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <a href="@Url.Action("Index", "Usuario")" class="list-group-item">
+                        <i class="fa fa-user fa-lg" aria-hidden="true"></i> Usuarios
+                    </a>
+                    <a href="@Url.Action("Index", "Producto")" class="list-group-item">
+                        <i class="fa fa-archive fa-lg" aria-hidden="true"></i> Productos
+                    </a>
+                    
+                    <a href="@Url.Action("ListaCategorias", "Manage")" class="list-group-item">
+                        <i class="fa fa-bookmark fa-lg" aria-hidden="true"></i> Categorias
+                    </a>
+                    <a href="@Url.Action("Index", "Marca")" class="list-group-item">
+                        <i class="fa fa-folder fa-lg" aria-hidden="true"></i> Marcas
+                    </a>
+                   
+                    <a href="@Url.Action("Index", "Pedido")" class="list-group-item">
+                        <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Pedidos
+                    </a>
+                </div>
+            </div>
+        </div>
+}
+else
+{
+    <div class="promos">
+        <div class="panel panel-default panel-menu">
+            <div class="panel-heading">Promociones</div>
+            <div class="panel-body">
+                <img src="~/images/promo01.jpg" class="img-responsive" />
+            </div>
+         </div>
+    </div>
+
+    <div class="promos">
+        <div class="panel panel-default panel-menu">
+            <div class="panel-heading">Siguenos en Facebook</div>
+            <div class="panel-body">
+                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FPractitiendasTambo%2F&tabs=timeline&width=260&height=300&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=234015149980582" width="260" height="300" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+            </div>
+        </div>
+    </div>
+           
+            }
+
+        </div>
+        }

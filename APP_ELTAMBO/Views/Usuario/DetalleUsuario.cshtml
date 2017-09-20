@@ -1,0 +1,158 @@
+﻿@model APP_ELTAMBO.Entity.Usuario
+
+@{
+    ViewBag.Title = "Ficha del Usuario";
+}
+<section id="usuario">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("_MenuAdmin")
+        </div>
+        <div class="col-md-9">
+            <div class="page-header">
+                <h2>Ficha del Usuario</h2>
+            </div>
+            <div class="panel panel-default panel-ficha">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="panel-body">
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.IdUsuario)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.IdUsuario)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Nombre)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Nombre)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Apellido)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Apellido)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Email)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Sexo)
+                                </dt>
+
+                                <dd>
+                                    @if (Model.Sexo == "M")
+                                    {
+                                        <span>Masculino</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Femenino</span>
+                                    }
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.DNI)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.DNI)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Telefono)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Telefono)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.FechaNacimiento)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.FechaNacimiento)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Direccion)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Direccion)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Referencia)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Referencia)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.NombreRegion)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.NombreRegion)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.NombreProvincia)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.NombreProvincia)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.NombreDistrito)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.NombreDistrito)
+                                </dd>
+
+                                
+
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="user-photo">
+                                <img src="@ViewBag.getImage" class="img-thumbnail" />
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+            </div>
+            <div class="action">
+                <a href="@Url.Action("Index","Usuario")" class="btn btn-default">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar a lista
+                </a>
+                <a href="@Url.Action("Edit","Usuario", new { IdLogin =Model.IdLogin })" class="btn btn-primary">
+                    <i class="fa fa-pencil" aria-hidden="true"></i> Actualizar Usuario
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+

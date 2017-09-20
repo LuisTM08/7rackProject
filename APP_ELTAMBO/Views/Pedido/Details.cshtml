@@ -1,0 +1,189 @@
+﻿@model APP_ELTAMBO.Entity.Pedido
+
+@{
+    ViewBag.Title = "Detalle de Pedido";
+}
+
+
+<section id="pedido">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("_MenuAdmin")
+        </div>
+        <div class="col-md-9">
+            <div class="page-header">
+                <h2>Detalle de Pedido</h2>
+            </div>
+
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IdPedido)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.IdPedido)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FechaPedido)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.FechaPedido)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FechaEntrega)
+                    </dt>
+
+                    <dd>
+                        @if (Model.FechaEntrega == "")
+                        {
+                            <span>No programado</span>
+                        }
+                        else
+                        {
+                            <span>@Model.FechaEntrega</span>
+                        }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FechaEnvio)
+                    </dt>
+
+                    <dd>
+                        @if (Model.FechaEnvio == "")
+                        {
+                            <span>No programado</span>
+                        }
+                        else
+                        {
+                            <span>@Model.FechaEnvio</span>
+                        }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Total)
+                    </dt>
+
+                    <dd>
+                        S/. @Model.Total.ToString("0.00")
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Envio)
+                    </dt>
+
+                    <dd>
+                        S/. @Model.Envio.ToString("0.00")
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Descuento)
+                    </dt>
+
+                    <dd>
+                        S/. @Model.Descuento.ToString("0.00")
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Direccion)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Direccion)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Referencia)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Referencia)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Distrito)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Distrito)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Provincia)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Provincia)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Region)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Region)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </dt>
+
+                    <dd>
+                        @if (Model.Estado == 1)
+                        {
+                            <span>Pedido</span>
+                        }
+                        else if (Model.Estado == 2)
+                        {
+                            <span>Enviado</span>
+                        }
+                        else
+                        {
+                            <span>Entregado</span>
+                        }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Pago)
+                    </dt>
+
+                    <dd>
+                       @if (Model.Pago == 1)
+                       {
+                        <p>Pagado</p>
+                       }
+                       else
+                       {
+                        <p>Pago contraentrega</p>
+                       }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.nombreUsuario)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.nombreUsuario)
+                    </dd>
+
+                </dl>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="@Url.Action("Index","Pedido")" class="btn btn-default">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar a lista
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar Pedido
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+            
+           

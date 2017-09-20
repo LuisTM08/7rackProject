@@ -1,0 +1,99 @@
+﻿@model APP_ELTAMBO.Entity.Pedido
+
+@{
+    ViewBag.Title = "Detalle de Compra";
+    
+}
+<section class="detalle-pedido">
+    <div class="row">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-9">
+            <div class="page-header">
+                <h2>Detalle de compra</h2>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Código de pedido:</strong> @Html.DisplayFor(model => model.IdPedido)
+                    <div class="pull-right">
+                       <strong>Fecha de Pedido:</strong> @Html.DisplayFor(model => model.FechaPedido)
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <p>Las entregas de los pedidos se realizaran en la siguiente dirección registrada por usted.
+                    <br /><strong>(Entregas de Lun a Domingo 8:30am - 10:00pm)</strong></p>
+                    <ul class="lista-direccion">
+                        <li><strong>Nombre de cliente:</strong> @ViewBag.nombreUsuario </li>
+                        <li><strong>Dirección:</strong> @Html.DisplayFor(model => model.Direccion), @Html.DisplayFor(model => model.Distrito), @Html.DisplayFor(model => model.Provincia) - @Html.DisplayFor(model => model.Region) </li>
+                        <li><strong>Referencias:</strong> @Html.DisplayFor(model => model.Referencia) </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Resumen de la Compra
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="lista-producto">
+                                @foreach (var item in ViewBag.ListaProducto)
+                                {
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <img src="@Url.Content("~/Uploads/products/")@item.Imagen" class="img-responsive" alt="">
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <h5 class="title">@item.nomProducto</h5>
+                                                    <p class="descripcion">@item.Descripcion</p>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <p><span class="precio">S/. @item.PrecioUnidad</span><br />x @item.Cantidad</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="total-pedido">
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                           <strong>SubTotal:</strong> 
+                                        </td>
+                                        <td>
+                                           S/. @Html.DisplayFor(model => model.SubTotal)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Costo Envio:</strong>
+                                        </td>
+                                        <td>
+                                           S/. @Html.DisplayFor(model => model.Envio)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Total:</strong>
+                                        </td>
+                                        <td>
+                                           <span class="precio">S/. @Html.DisplayFor(model => model.Total)</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

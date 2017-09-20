@@ -1,0 +1,111 @@
+﻿@model APP_ELTAMBO.Entity.Producto
+
+@{
+    ViewBag.Title = "Producto";
+}
+<section id="producto" class="page-inside">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="left-sidebar">
+                <h2>Categorias</h2>
+                <div class="panel-group category-products" id="accordian">
+                    <!--category-productsr-->
+
+                    @foreach (var item in ViewBag.listarCatergorias)
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a id="cat_@item.IdCategoria" href="@Url.Action("Categoria","Home", new { id = item.IdCategoria })">@item.NombreCat</a></h4>
+                            </div>
+                        </div>
+                    }
+                </div><!--/category-products-->
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="detalle-producto">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="cubo-inside">
+                            <div class="price-round text-center">
+                                <span class="price-main ">@Model.PrecioUnitario.ToString("0.00")</span>
+                                <span class="price-unit"><span>S/.</span></span>
+                            </div>
+
+                            @if (Model.ImagenProducto.ToString() == null)
+                            {
+                                <img src="~/images/producto-item.svg" alt="@Model.NombreProd" class="girl img-responsive" />
+                            }
+                            else
+                            {
+                                <img src="@Url.Content("~/Uploads/products/")@Model.ImagenProducto" class="girl img-responsive" alt="@Model.NombreProd" />
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="descripcion">
+                            <span class="marca-producto">@Html.DisplayFor(model => model.NombreMarca)</span>
+                            <h1 class="title">@Html.DisplayFor(model => model.NombreProd)</h1>
+                            <p><strong>Descripción: </strong> @Html.DisplayFor(model => model.DescripcionPro)</p>
+                            <p><strong>Código Producto: </strong>  @Html.DisplayFor(model => model.IdProducto)</p>
+                            <p><strong>Categoria: </strong>@Html.DisplayFor(model => model.NombreCategoria)</p>
+                            <button onclick="addProducto(@Model.IdProducto);" data-id="@Model.IdProducto" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i> Agregar al carrito</button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIN DE PRODUCTOS HOME -->
+    <div class="recommended_items">
+       
+        <h2 class="title text-center">Productos Recomendados</h2>
+
+        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+
+
+            <div id="producto-recomendados" class="owl-carousel" >
+                @foreach (var item in ViewBag.listarRecomendados)
+                {
+                <div class="item">
+                    <div class="product-image-wrapper">
+                        <div class="single-products">
+                            <div class="productinfo text-center">
+                                <a href="@Url.Action("Producto","Home", new {  id=item.IdProducto  })">
+                                    @if (item.ImagenProducto.ToString() == null)
+                                    {
+                                        <img src="~/images/producto-item.svg" alt="@item.NombreProd" class="girl" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@Url.Content("~/Uploads/products/")@item.ImagenProducto" class="girl" alt="@item.NombreProd" />
+                                    }
+                                </a>
+                                    <h2>S/. @item.PrecioUnitario.ToString("0.00")</h2>
+                                    <p>@item.NombreProd</p>
+                                    <button onclick="addProducto(@item.IdProducto);" data-id="@item.IdProducto" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i> Agregar al carrito</button>
+</div>
+                        </div>
+                    </div>
+
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#producto-recomendados").owlCarousel({
+                            autoPlay: 3000, //Set AutoPlay to 3 seconds
+                            items: 4,
+                            itemsDesktop: [1199, 4],
+                            itemsDesktopSmall: [979, 3],
+                            navigation: true,
+                            pagination: false,
+                            stopOnHover: true,
+                            navigationText: ['<', ">"],
+                        });
+                    });
+</script>

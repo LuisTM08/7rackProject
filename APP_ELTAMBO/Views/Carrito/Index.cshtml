@@ -1,0 +1,298 @@
+﻿@model IEnumerable<APP_ELTAMBO.Entity.Carrito>
+
+@{
+    ViewBag.Title = "Mi Carrito";
+    var usuario = (APP_ELTAMBO.Entity.Usuario)ViewBag.getUsuario;
+}
+
+<section id="cart_items">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="page-header">
+                <h2>Detalle de carrito</h2>
+            </div>
+            <p>Antes de realizar la compra verifica <strong>SI es el producto elegido correctamente</strong>, Tambo+ no se responsabiliza elecciones erroneas que fueron agregados a la compra.</p>
+            <!--Inicio detalle de carrito-->
+            <div class="table-responsive cart_info">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr class="cart_menu">
+                            <td class="image">@Html.DisplayNameFor(model => model.NombreProducto)</td>
+                            <td class="description" width="30%"></td>
+                            <td class="price">@Html.DisplayNameFor(model => model.PrecioUnidad)</td>
+                            <td class="quantity">@Html.DisplayNameFor(model => model.Cantidad)</td>
+                            <td class="total">@Html.DisplayNameFor(model => model.SubTotal)</td>
+                            <td>Acciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr id="row_product_@item.IdProducto">
+                            <td class="cart_product">
+                                <a href=""><img src="@Url.Content("~/Uploads/products/")@item.Imagen" width="80" alt=""></a>
+                            </td>
+                            <td class="cart_description">
+                                <h4><a href="">@Html.DisplayFor(modelItem => item.NombreProducto)</a></h4>
+                                <p>@Html.DisplayFor(modelItem => item.Descripcion)</p>
+                                <p><strong>Código:</strong> @Html.DisplayFor(modelItem => item.IdProducto)</p>
+                            </td>
+                            <td class="cart_price">
+                                <p>S/. @Html.DisplayFor(modelItem => item.PrecioUnidad)</p>
+                            </td>
+                            <td class="cart_quantity">
+                                <div class="cart_quantity_button">
+                                    <a class="cart_quantity_up" href="javascript:{}"> + </a>
+                                    <input id="cantid_@item.IdProducto" class="cart_quantity_input" type="text" name="quantity" value="@Html.DisplayFor(modelItem => item.Cantidad)" autocomplete="off" size="2">
+                                    <a class="cart_quantity_down" href="javascript:{}" > - </a>
+                                </div>
+                            </td>
+                            <td class="cart_total">
+                                <p class="cart_total_price">S/. @Html.DisplayFor(modelItem => item.SubTotal)</p>
+                            </td>
+                            <td class="cart_delete">
+                                <button class="btn btn-danger btn-sm" onclick="quitarProducto(@item.IdProducto)"><i class="fa fa-times"></i></button>
+                                <button id="update_@item.IdProducto" onclick="update(@item.IdProducto);" class="btn btn-success btn-sm" type="submit"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- SIMULADOR DE LA PASAREJA DE PAGO -->
+
+            <div class="pasarela">
+                <div class="aviso-msg">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <div class="aviso-icon">
+                                <i class="fa fa-clock-o fa-3x" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-11">
+                            <p>Tu pedido se a reservado. Recuerda que tienes 10 Minutos para realizar el pago, al cabo de este tiempo, tu reserva expirará.
+                            Si quieres realizar algún cambio a tu reserva, tendrás que empezar de nuevo.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tipo-pago">
+                    <h4>Medios de pago</h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="option-pago">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="medio-pago" id="medio-tarjeta" class="pago" value="tarjeta" checked>
+                                        <img src="~/images/pago-tarjeta.png" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="option-pago">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="medio-pago" id="medio-entrega" class="pago" value="contraentrega" >
+                                        <img src="~/images/pago-contraentrega.png" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    
+                    <div id="pago-visa">
+                        <div class="well">
+                            <form method="post" action="" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Tipo de tarjeta</label>
+                                    <div class="col-sm-9">
+                                        <div class="tarjetas">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="tipotarjeta" id="tipotarjeta" value="1" checked>
+                                                    <img src="~/images/visa.png" />
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="tipotarjeta" id="tipotarjeta" value="2">
+                                                    <img src="~/images/mastercard.png" />
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="tipotarjeta" id="tipotarjeta" value="3">
+                                                    <img src="~/images/american-express.png" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="numtarjeta" class="col-sm-3 control-label">Número de tarjeta</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="numtarjeta" name="numtarjeta" placeholder="Escriba el número de tarjeta">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="titular" class="col-sm-3 control-label">Nombre del titular de la tarjeta</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="titular" name="titular" placeholder="Nombre del titular">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="titular" class="col-sm-6 control-label">Fecha de Vencimiento</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="mestarjeta" name="mestarjeta" placeholder="Mes">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="aniotarjeta" name="aniotarjeta" placeholder="Año">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="titular" class="col-sm-2 control-label">CVC</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="cvctarjeta" name="cvctarjeta" placeholder="CVC">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                    <div id="pago-contraentrega">
+                        <div class="well">
+                            <div class="alert alert-success" role="alert">
+                                ¡En Tambo puedes pagar en efectivo! Al finalizar tu pedido, elige la opción “Pago contra entrega”. En las próximas horas recibirás un correo con la confirmación de tu pedido.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FIN SIMULADOR DE LA PASAREJA DE PAGO -->
+
+
+            <!--Termina detalle de carrito-->
+            <!-- Cupon -->
+            @*<div id="cuponera">
+                <section class="form-inline">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input onkeyup="javascript:this.value=this.value.toUpperCase();" type="text" class="form-control" id="micupon" name="micupon" placeholder="Escribe tu código de cupón">
+                        </div>
+                    </div>
+                    <button onclick="aplicarCupon();" type="submit" class="btn btn-primary"><i class="fa fa-tags" aria-hidden="true"></i> Aplicar Cupón </button>
+                </section>
+            </div>*@
+            <!-- Fin Cupon -->
+            <div class="detalle-usuario">
+                <div class="alert alert-warning" role="alert">
+                    <h4>Recuerda:</h4>
+                    <p>Para procesar esta compra, verifique si su dirección de envio es correcta, si no es asi puede cambiar sus datos <a href="@Url.Action("Edit","Usuario", new {  IdLogin=usuario.IdLogin })">aquí</a> </p>
+                    <p><strong>Nombres: </strong>@usuario.Nombre, @usuario.Apellido (@usuario.DNI)
+                    <strong>Dirección: </strong>@usuario.Direccion
+                    <strong>Referencia: </strong>@usuario.Referencia</p>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="sidebar-cart">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                            Resumen del pedido
+                    </div>
+                    <div class="panel-body">
+                        <ul class="resumen">
+                            <li>
+                                <p>Subtotal (2)</p>
+                                <input type="hidden" name="subtotal" id="subtotal" value="@ViewBag.getSubTotal" />
+                                <span class="price price-subtotal pull-right">S/ @ViewBag.getSubTotal</span>
+                            </li>
+                            <li>
+                                <p>Envio</p>
+                                <input type="hidden" name="cenvio" id="cenvio" value="@ViewBag.getEnvio" />
+                                <span class="price pull-right">S/ @ViewBag.getEnvio</span>
+                            </li>
+                            <li>
+                                <p>Descuento</p>
+                                <input type="hidden" name="descuento" id="descuento" value="@ViewBag.getDescuento" />
+                                <span class="price pull-right">- S/ @ViewBag.getDescuento</span>
+                            </li>
+                            <li>
+                                <h4>Total</h4>
+                                <input type="hidden" name="total" id="total" value="@ViewBag.getTotal" />
+                                <span class="price price-total pull-right">S/ @ViewBag.getTotal</span>
+                            </li>
+                        </ul>
+                        
+                        <button onclick="procesarPedido();" class="btn btn-primary btn-block btn-lg">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Procesar compra
+                        </button>
+                    </div>
+                </div>
+                <div class="zona-segura">
+                    <img src="~/images/seguridad.png" />
+                    <p>
+                        <a href="#" title="Politicas de protección al comprador">
+                            <i class="fa fa-lock" aria-hidden="true"></i> Protección al Comprador</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#pago-contraentrega").hide();
+
+        $(".pago").click(function (evento) {
+            var valor = $(this).val();
+            if (valor == 'contraentrega') {
+                $("#pago-contraentrega").show();
+                $("#pago-visa").hide();
+            } else {
+                $("#pago-contraentrega").hide();
+                $("#pago-visa").show();
+            }
+        });
+    });
+
+    function procesarPedido() {
+        if ($("#medio-tarjeta").is(':checked')) {
+            if ($("#numtarjeta").val() == "") {
+                alert("Debe escribir numero de tarjeta");
+            } else {
+                sub = $("#subtotal").val();
+                total = $("#total").val();
+                envio = $("#cenvio").val();
+                console.log(total);
+                var info = {
+                    'subtotal': sub,
+                    'total': total,
+                    'envio': envio
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '/Carrito/crearPedido',
+                    contentType: "application/json; charset=utf-8",
+                    processData: false,
+                    data: JSON.stringify(info),
+                    success: function (result) {
+                        window.location.href = result.url
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+        }
+        
+    }
+</script>

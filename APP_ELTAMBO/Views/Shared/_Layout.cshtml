@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Tienda Tambo Más</title>
+    @Styles.Render("~/css/bootstrap.min.css")
+    @Styles.Render("~/css/font-awesome.min.css")
+    @Styles.Render("~/css/prettyPhoto.css")
+    @Styles.Render("~/css/animate.css")
+    @Styles.Render("~/css/font-awesome.min.css")
+    @Styles.Render("~/css/notifIt.css")
+    @Styles.Render("~/css/responsive.css")
+    @Styles.Render("~/css/bootstrap-datepicker3.min.css")
+    @Styles.Render("~/css/Jcrop.min.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/css/owl.carousel.css")
+    @Styles.Render("~/css/main.css")
+    <!--[if lt IE 9]>
+    <script src="@Url.Content("~/js/html5shiv.js")"></script>
+    <script src="@Url.Content("~/js/respond.min.js")"></script>
+    <![endif]-->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/js/bootstrap-datepicker.min.js")
+    @Scripts.Render("~/js/Jcrop.min.js")
+    @Scripts.Render("~/locales/bootstrap-datepicker.es.min.js")
+    @Scripts.Render("~/js/main.js")
+    @Scripts.Render("~/js/notifIt.min.js")
+    @Scripts.Render("~/js/owl.carousel.min.js")
+    @RenderSection("scripts", required: false)
+    <link rel="shortcut icon" href="@Url.Content("~/images/favicon.ico")">
+    
+</head>
+<body>
+    
+    <header id="header">
+        <!--header-->
+        <div class="header_top">
+            <!--header_top-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="contactinfo">
+                            <ul class="nav nav-pills">
+                                <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
+                                <li><a href="#"><i class="fa fa-envelope"></i> info@tambomas.pe</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="social-icons pull-right">
+                            <ul class="nav navbar-nav">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header_top-->
+
+        <div class="header-middle">
+            <!--header-middle-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="logo pull-left">
+                            <a href="@Url.Content("/")"><img src="@Url.Content("~/images/logo-eltambo.svg")" alt="" /></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="shop-menu pull-right">
+                            <ul class="nav navbar-nav">
+                                <li><a href="#"><i class="fa fa-user"></i> Mi Perfil</a></li>
+                                <li><a href="@Url.Action("Index","Carrito")"><i class="fa fa-shopping-cart"></i> Mi Carrito <span id="shop" class="badge">0</span></a></li>
+                                @Html.Partial("_LoginPartial")
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-middle-->
+
+        <div class="header-bottom">
+            <!--header-bottom-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="mainmenu pull-left">
+                            <ul class="nav navbar-nav collapse navbar-collapse">
+                                <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                                <li>@Html.ActionLink("Catalogo", "Catalogo", "Home")</li>
+                                
+                                <li>@Html.ActionLink("Nosotros", "About", "Home")</li>
+                                <li><a href=" ~/ErrorPage.html">Promociones</a></li>
+                                <li>@Html.ActionLink("Contacto", "Create", "Contacto")</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        @using (Html.BeginForm("Buscar", "Home", FormMethod.Get,new { @class = "form-inline" }))
+                        {
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" value="@ViewBag.filtro" name="filtro" id="filtro" class="form-control" placeholder="Busque su producto" />
+                                    <input type="submit" value="Buscar" class="btn btn-primary" style="display: none" />
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-bottom-->
+    </header><!--/header-->
+    <section class="section-body">
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+        <div class="corte"></div>
+    </section>
+    <footer id="footer">
+        <!--Footer-->
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="companyinfo">
+                            <img src="@Url.Content("~/images/logo-eltambo.svg")" class="img-responsive">
+                            <p>Aprovecha las ofertas del día en tus tienda Tambo ahora.
+Más de 100 tiendas · Atendemos las 24 horas · Ahorra más en Tambo+</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="footer-link">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <a href="#"><img src="@Url.Content("~/images/escribenos.png")" class="img-responsive" /></a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="#"><img src="@Url.Content("~/images/local.png")" class="img-responsive" /></a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="#"><img src="@Url.Content("~/images/trabaja.png")" class="img-responsive" /></a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="#"><img src="@Url.Content("~/images/proveedores.png")" class="img-responsive" /></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <p class="pull-left">&copy; @DateTime.Now.Year El Tambo. Todos los derechos reservados.</p>
+                    <p class="pull-right">Desarrollador por <span><a target="_blank" href="#">Grupo 7</a></span></p>
+                </div>
+            </div>
+    </div>
+    </footer><!--/Footer-->
+
+    
+</body>
+</html>

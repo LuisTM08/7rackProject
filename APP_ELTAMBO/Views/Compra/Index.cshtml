@@ -1,0 +1,83 @@
+﻿@model IEnumerable<APP_ELTAMBO.Entity.DetalleCompra>
+
+@{
+    ViewBag.Title = "Mis Pedidos";
+    //WebGrid wg = new WebGrid(Model,rowsPerPage:5);
+    var usuario = (APP_ELTAMBO.Entity.Usuario)ViewBag.getUsuario;
+
+}
+
+@*<h2>Mis Pedidos Online</h2>
+<br />
+@wg.GetHtml(
+    tableStyle:"table table-bordered table-hover",
+    headerStyle: "header",
+    footerStyle: "footer",
+    mode:WebGridPagerModes.All,
+    columns:new[] {
+        wg.Column("NombreProducto",header:"Producto"),
+        wg.Column("Descripcion",header:"Descripcion"),
+        wg.Column("FechaPedido",header:"Fecha Pedido"),
+        wg.Column("Cantidad",header:"Cantidad"),
+        wg.Column("Total",header:"Total",format:x=>x.Total.ToString("0.00")),
+    })*@
+
+<section id="cart_items">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="page-header">
+                <h2>Mis pedidos On-line</h2>
+            </div>
+            @*<p>Antes de realizar la compra verifica <strong>SI es el producto elegido correctamente</strong>, Tambo+ no se responsabiliza elecciones erroneas que fueron agregados a la compra.</p>*@
+            
+            <div class="table-responsive cart_info">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr class="cart_menu">
+                            <td class="image">@Html.DisplayNameFor(model => model.NombreProducto)</td>
+                            <td class="description" width="30%">@Html.DisplayNameFor(model => model.Descripcion)</td>
+                            <td class="price">@Html.DisplayNameFor(model => model.FechaPedido)</td>
+                            <td class="quantity">@Html.DisplayNameFor(model => model.Cantidad)</td>
+                            <td class="total">@Html.DisplayNameFor(model => model.Total)</td>                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="row_product_@item.IdProducto">
+                                <td class="cart_description">
+                                    <p>@Html.DisplayFor(modelItem => item.NombreProducto)</p>
+                                </td>
+                                <td class="cart_description">                                    
+                                    <p>@Html.DisplayFor(modelItem => item.Descripcion)</p>                                    
+                                </td>
+                                <td class="cart_description">
+                                    <p>@Html.DisplayFor(modelItem => item.FechaPedido)</p>
+                                </td>
+                                <td class="cart_quantity">
+                                    <p>@Html.DisplayFor(modelItem => item.Cantidad)</p>
+                                </td>
+                                <td class="cart_total">
+                                    <p class="cart_total_price">S/. @Html.DisplayFor(modelItem => item.Total)</p>
+                                </td>
+                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+       
+    </div>
+</section>
+
+<style>
+    .header{
+        background-color:#A61493;
+    }
+    .footer{
+        background-color:#A61493;
+    }
+</style>
+
